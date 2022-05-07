@@ -14,17 +14,23 @@ func FetchCrypto(fiat string, crypto string) ([]model.BinanceCandle, error) {
 	// make HTTP request and put response in a string
 	resp, err := http.Get(URL)
 	if err != nil {
-		log.Fatalf("request error: %s", err)
+		log.Printf("request error: %s\n", err)
+		return nil, err
 	}
-	defer resp.Body.Close()
+	if err := resp.Body.Close(); err != nil {
+		log.Printf("closing request error: %s", err)
+		return nil, err
+	}
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalln(err)
+		log.Printf("to body conversion error: %s\n", err)
+		return nil, err
 	}
 	// variable with response (candles)
 	var response model.BinanceCandlesResponse
 	if err := json.Unmarshal(body, &response); err != nil {
-		log.Fatalf("unmarshall error: %s", err)
+		log.Printf("unmarshall error: %s\n", err)
+		return nil, err
 	}
 	return response.BinanceCandles, nil
 }

@@ -2,8 +2,11 @@ package main
 
 import (
 	"github.com/vi350/theprogressmachine-testtask/app"
+	"log"
 )
 
 func main() {
-	app.BaseLevel()
+	if err := app.BaseLevel(); err != nil {
+		log.Fatalf("error: %s", err)
+	}
 }

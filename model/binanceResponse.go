@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"strconv"
 )
 
@@ -19,19 +20,19 @@ type BinanceCandlesResponse struct {
 func (c *BinanceCandle) UnmarshalJSON(data []byte) error {
 	var v []interface{}
 	if err := json.Unmarshal(data, &v); err != nil {
-		fmt.Printf("Error while decoding %v\n", err)
+		log.Printf("Error while decoding %v\n", err)
 		return err
 	}
 	var err error = nil
 	c.OpenTime = int64(v[0].(float64))
 	if i, _ := strconv.ParseFloat(v[2].(string), 64); err != nil {
-		fmt.Printf("Error while parsing %v\n", err)
+		log.Printf("Error while parsing %v\n", err)
 		return err
 	} else {
 		c.High = int(i)
 	}
 	if i, _ := strconv.ParseFloat(v[3].(string), 64); err != nil {
-		fmt.Printf("Error while parsing %v\n", err)
+		log.Printf("Error while parsing %v\n", err)
 		return err
 	} else {
 		c.Low = int(i)
@@ -43,7 +44,7 @@ func (c *BinanceCandle) UnmarshalJSON(data []byte) error {
 func (c *BinanceCandlesResponse) UnmarshalJSON(data []byte) error {
 	var v []BinanceCandle
 	if err := json.Unmarshal(data, &v); err != nil {
-		fmt.Printf("Error whilde decoding %v\n", err)
+		log.Printf("Error whilde decoding %v\n", err)
 		return err
 	}
 	c.BinanceCandles = v
