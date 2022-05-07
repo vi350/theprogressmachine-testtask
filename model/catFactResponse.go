@@ -2,11 +2,13 @@ package model
 
 import "fmt"
 
+// CatFact is a struct for one fact from response
 type CatFact struct {
 	Fact   string `json:"fact"`
 	Length int    `json:"length"`
 }
 
+// CatFactsResponse is a struct for json unmarshalling
 type CatFactsResponse struct {
 	CatFacts []CatFact `json:"data"`
 }

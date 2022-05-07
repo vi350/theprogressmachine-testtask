@@ -7,16 +7,19 @@ import (
 	"strconv"
 )
 
+// BinanceCandle is a struct for minimal needed data of one candle
 type BinanceCandle struct {
 	OpenTime int64
 	High     int
 	Low      int
 }
 
+// BinanceCandlesResponse is a struct for json unmarshalling
 type BinanceCandlesResponse struct {
 	BinanceCandles []BinanceCandle
 }
 
+// UnmarshalJSON is a custom unmarshall function for one array -> candle
 func (c *BinanceCandle) UnmarshalJSON(data []byte) error {
 	var v []interface{}
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -41,6 +44,7 @@ func (c *BinanceCandle) UnmarshalJSON(data []byte) error {
 	return err
 }
 
+// UnmarshalJSON is a custom unmarshall function for the whole query json
 func (c *BinanceCandlesResponse) UnmarshalJSON(data []byte) error {
 	var v []BinanceCandle
 	if err := json.Unmarshal(data, &v); err != nil {

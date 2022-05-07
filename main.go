@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+// main is main
 func main() {
 	if err := app.BaseLevel(); err != nil {
 		log.Fatalf("error: %s", err)

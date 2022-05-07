@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+// BaseLevel is a function calling methods solving base level of the testtask
 func BaseLevel() error {
 	candles, err := FetchCrypto("USDT", "BTC")
 	if err != nil {
